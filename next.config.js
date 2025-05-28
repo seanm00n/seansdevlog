@@ -21,6 +21,20 @@ export default withBundleAnalyzer({
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
   },
+  
+  async headers() {
+  return [
+    {
+      source: '/(.*)', // 모든 경로에 대해
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'no-store, no-cache, must-revalidate, proxy-revalidate'
+        }
+      ]
+    }
+  ]
+  },
 
   webpack: (config, _context) => {
     // Workaround for ensuring that `react` and `react-dom` resolve correctly
